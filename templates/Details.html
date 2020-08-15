@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% ifnotequal value '' %}
+        <title>具体-{{value}}</title>
+    {% else %}
+        <title>你可真调皮</title>
+    {% endifnotequal %}
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../static/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/SearchPage.css" />
+    <!--[if IE]>
+        <script src="../static/js/html5.js"></script>
+    <![endif]-->
+    <script>
+        function emphasize(keyword){
+            var contents=document.getElementsByClassName('result_content');
+            for(var i=0;i<contents.length;i++){
+                var content=contents[i].innerHTML;
+                content=content.split(keyword).join('<span class="emphasized">'+keyword+'</span>');
+                contents[i].innerHTML=content;
+            }
+        }
+    </script>
+</head>
+<body onload="emphasize('{{value}}')">
+    <div class="container demo-1"><div class="content" id="content">
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas"></canvas>
+            <div class="logo_box">
+                <form action="{% url 'home:home' %}" method="POST">
+                    {%csrf_token%}
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input name="search_string" class="text" style="color: #FFFFFF !important" type="text" placeholder="{{placeholder}}" value="{{value}}">
+                    </div>
+                </form>
+                <div style="position: relative;width:100%;height: 1px;border-bottom:thin solid rgba(255, 255, 255, 0.2);"></div>
+                <div class="result_outer">
+                    <div class="result_block">
+                        <div class="result_content">
+                            {{content}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <!--<span class="yrt19">SAST® yrt19@mails.tsinghua.edu.cn</span>-->
+            SAST® yrt19@mails.tsinghua.edu.cn
+        </footer>
+    </div></div>
+	<script src="../static/js/TweenLite.min.js"></script>
+	<script src="../static/js/EasePack.min.js"></script>
+	<script src="../static/js/rAF.js"></script>
+	<script src="../static/js/demo-1.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% ifnotequal value '' %}
+        <title>搜索-{{value}}</title>
+    {% else %}
+        <title>搜索点什么吧</title>
+    {% endifnotequal %}
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../static/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/SearchPage.css" />
+    <!--[if IE]>
+        <script src="../static/js/html5.js"></script>
+    <![endif]-->
+    <script>
+        function doGet(to, p) { // to:提交动作（action）,p:参数
+            var myForm = document.createElement("form");
+            myForm.method = "get";
+            myForm.action = to;
+            for (var i in p){
+                var myInput = document.createElement("input");
+                myInput.setAttribute("name", i); // 为input对象设置name
+                myInput.setAttribute("value", p[i]); // 为input对象设置value
+                myForm.appendChild(myInput);
+            }
+            document.body.appendChild(myForm);
+            myForm.submit();
+            document.body.removeChild(myForm); // 提交后移除创建的form
+        }
+        function emphasize(keyword){
+            var contents=document.getElementsByClassName('result_content');
+            for(var i=0;i<contents.length;i++){
+                var content=contents[i].innerHTML;
+                content=content.split(keyword).join('<span class="emphasized">'+keyword+'</span>');
+                contents[i].innerHTML=content;
+            }
+        }
+    </script>
+</head>
+<body onload="emphasize('{{value}}')">
+    <div class="container demo-1"><div class="content" id="content">
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas"></canvas>
+            <div class="logo_box">
+                <form action="{% url 'home:home' %}" method="POST">
+                    {%csrf_token%}
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input name="search_string" class="text" style="color: #FFFFFF" type="text" placeholder="{{placeholder}}" value="{{value}}">
+                    </div>
+                </form>
+                <div style="position: relative;width:100%;height: 1px;border-bottom:thin solid rgba(255, 255, 255, 0.2);"></div>
+                <div class="result_outer">
+                {% if content %}
+                    {% for item in content %}
+                        <a href="javascript:doGet('/{{item.id}}', {'search_string':'{{value}}'})"><div class="result_block">
+                            <div class="result_content">
+                                {{item.content}}
+                            </div>
+                        </div></a>
+                        <div style="height: 5px;"></div>
+                    {% endfor %}
+                {% else %}
+                    空空如也~
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        <footer>
+            <!--<span class="yrt19">SAST® yrt19@mails.tsinghua.edu.cn</span>-->
+            SAST® yrt19@mails.tsinghua.edu.cn
+        </footer>
+    </div></div>
+    <!--<script src="../static/js/PageTwo.js"></script>-->
+	<script src="../static/js/TweenLite.min.js"></script>
+	<script src="../static/js/EasePack.min.js"></script>
+	<script src="../static/js/rAF.js"></script>
+	<script src="../static/js/demo-1.js"></script>
+</body>
+</html>

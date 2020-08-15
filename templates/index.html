@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>搜索点什么吧</title>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="../static/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../static/css/demo.css" />
+	<!--必要样式-->
+	<link rel="stylesheet" type="text/css" href="../static/css/component.css" />
+	<!--[if IE]>
+		<script src="../static/js/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="container demo-1">
+		<div class="content" id="content">
+			<div id="large-header" class="large-header">
+				<canvas id="demo-canvas"></canvas>
+				<nav class="nav">
+					<a href="/login"><span id='nav_logo'></span></a>
+					<button class="rbutton" id="moon" onclick="chbg(1)"></button>
+					<button class="rbutton" id="earth" onclick="chbg(2)"></button>
+				</nav>
+				<div class="logo_box">
+					{% ifnotequal placeholder '' %}
+						<p style="text-align: center;color: yellow;font-size: 17px;">
+							{{placeholder}}
+						</p>
+					{% endifnotequal %}
+					<form action="" method="post">
+						{%csrf_token%}
+						<div class="input_outer">
+							<span class="u_user"></span>
+							<input name="search_string" class="text" style="color: #FFFFFF" type="text" placeholder="搜索些什么吧">
+						</div>
+						<!--<div class="input_outer">
+							<span class="us_uer"></span>
+							<input name="logpass" class="text" style="color: #FFFFFF; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
+						</div>-->
+						<!--<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">搜索</a></div>-->
+					</form>
+					<p style="text-align: center;font-size: 15px;">
+						这是测试版，数据库中文章均为随机生成
+					</p>
+				</div>
+			</div>
+			<footer>
+				<!--<span class="yrt19">SAST® yrt19@mails.tsinghua.edu.cn</span>-->
+				SAST® yrt19@mails.tsinghua.edu.cn
+			</footer>
+		</div>
+	</div><!-- /container -->
+	<script src="../static/js/TweenLite.min.js"></script>
+	<script src="../static/js/EasePack.min.js"></script>
+	<script src="../static/js/rAF.js"></script>
+	<script src="../static/js/demo-1.js"></script>
+	<script>
+		function chbg(num){
+			var content=document.getElementById('content');
+			var input_outer=document.getElementsByClassName('input_outer');
+			if(num==1){
+				content.style.background="url('../static/img/PlutoCrescent.jpg')";
+				for(var i=0;i<input_outer.length;i++)
+					input_outer[i].style.border="2px solid rgba(255,255,255,0.2)";
+			}else if(num==2){
+				content.style.background="url('../static/img/EarthNight.jpg')";
+				for(var i=0;i<input_outer.length;i++)
+					input_outer[i].style.border="2px solid rgba(255,255,255,0.5)";
+			}
+			content.style.backgroundPosition='center center';
+			content.style.backgroundSize='cover';
+		}
+	</script>
+</body>
+</html>

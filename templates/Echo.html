@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo</title>
+    <link rel="icon" href="../favicon.ico"/>
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <link rel="bookmark" href="../favicon.ico"/>
+</head>
+<body style="text-align: center;font-family: -apple-system, BlinkMacSystem\
+    Font, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helve\
+    tica Neue', sans-serif;">
+    <h1>Echo</h1>
+    <p>在本界面中，输入一段话，网站将会将它传给服务器端界面</p>
+    <form action="/test/echotest" method="GET">
+        <input type="text" name="echo_string" placeholder="说点什么吧">
+        <!--<br><br>-->
+        <input type="submit" value="确定">
+        <br><br>
+    </form>
+    <input type="button" value="返回主界面" onclick="location.href='/test'">
+</body>
+</html>

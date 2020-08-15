@@ -1,0 +1,16 @@
+<title>Todo_list</title>
+</head>
+<body>
+<div class="text" style=" text-align:center;">
+<h1>todolist</h1>
+<ul type="none">
+    <div class="text" style="text-align:left;padding-left:500px;">
+        {% for foo in items %}
+            <li><a href="{% url 'todo_list:todo_detail' foo.id %}">{{ foo.title}}</a></li>
+        {% empty %}
+            <li><a href="{% url 'todo_list:todo_add' %}">暂无待办事项</a></li>
+        {% endfor %}
+    </div>
+</ul>
+</div>
+</body>
